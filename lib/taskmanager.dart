@@ -69,6 +69,7 @@ class _taskManagerState extends State<taskManager> {
           // _addTask();
           final String currentTeam = await _asyncInputDialog(context);
           print("Current team name is $currentTeam");
+          if (currentTeam != "")
           _addTask(currentTeam);
         },
       ),

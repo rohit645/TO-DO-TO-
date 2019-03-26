@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import './showtasks.dart';
-import './inputalert.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future<String> _asyncInputDialog(BuildContext context) async {
   String teamName = '';
@@ -45,12 +45,17 @@ class taskManager extends StatefulWidget {
 }
 
 class _taskManagerState extends State<taskManager> {
-  final List<String> tasks = [];
+  List<String> tasks = [];
+
+  @override
+  void initState() {
+    
+    super.initState();
+  }
 
   void _addTask(String task) {
     setState(() {
-      tasks.add(task);
-      // print(tasks);
+      tasks.add(task);     
     });
   }
 
@@ -59,6 +64,12 @@ class _taskManagerState extends State<taskManager> {
       tasks.remove(task);
     });
   }
+
+  // @override
+  // void initState() {
+  //   tasks = _getTaskList();
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -69,11 +80,22 @@ class _taskManagerState extends State<taskManager> {
           // _addTask();
           final String currentTeam = await _asyncInputDialog(context);
           print("Current team name is $currentTeam");
-          if (currentTeam != "")
-          _addTask(currentTeam);
+          if (currentTeam != "") _addTask(currentTeam);
+          _setvalues(tasks);
         },
       ),
-      body: showtasks(tasks,_deletetask),
+      body: showtasks(tasks, _deletetask),
     );
   }
+
+  Future <bool> _setvalues(List <String> tasks) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.setStringList('key645', tasks);
+  }
+
+  Future <List<String> > _getvalues () async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getStringList('key645');
+  }
+ 
 }

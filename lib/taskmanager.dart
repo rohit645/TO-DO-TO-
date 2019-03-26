@@ -49,12 +49,15 @@ class _taskManagerState extends State<taskManager> {
 
   @override
   void initState() {
-    
+    _getvalues();
+    print(tasks);
+    showtasks(tasks, _deletetask);
     super.initState();
   }
 
   void _addTask(String task) {
     setState(() {
+      _setvalues(tasks);
       tasks.add(task);     
     });
   }
@@ -62,6 +65,7 @@ class _taskManagerState extends State<taskManager> {
   void _deletetask(String task) {
     setState(() {
       tasks.remove(task);
+      _setvalues(tasks);
     });
   }
 
@@ -95,7 +99,8 @@ class _taskManagerState extends State<taskManager> {
 
   Future <List<String> > _getvalues () async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getStringList('key645');
+    List <String> dummytask;
+    tasks += prefs.getStringList('key645');
   }
- 
+  
 }

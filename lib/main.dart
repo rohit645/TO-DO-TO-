@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        '/details': (BuildContext context) => detailsWindow()
+        // '/details': (BuildContext context) => detailsWindow(t)
       },
       home: Scaffold(
         appBar: AppBar(

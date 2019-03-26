@@ -47,13 +47,13 @@ class taskManager extends StatefulWidget {
 
 class _taskManagerState extends State<taskManager> {
   List<String> tasks = [];
-  Map<String, String> details = {};
+  Map<int, String> details = {};
 
   @override
   void initState() {
     _getvalues();
     print(tasks);
-    showtasks(tasks, _deletetask, _add_details);
+    showtasks(tasks, _deletetask, _add_details, details);
     super.initState();
   }
 
@@ -64,11 +64,18 @@ class _taskManagerState extends State<taskManager> {
     });
   }
 
-  void _add_details() {
+  void _add_details(int index) {
     print('added details!');
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (BuildContext) => detailsWindow()));
+        .push(MaterialPageRoute(builder: (BuildContext) => detailsWindow(index, _updateTaskData)));
     // details[]
+  }
+
+  void _updateTaskData(int index, String value) {
+    setState(() {
+      details[index] = value;   
+      print(details);
+    });
   }
 
   void _deletetask(String task) {
@@ -97,7 +104,7 @@ class _taskManagerState extends State<taskManager> {
           _setvalues(tasks);
         },
       ),
-      body: showtasks(tasks, _deletetask, _add_details),
+      body: showtasks(tasks, _deletetask, _add_details, details),
     );
   }
 

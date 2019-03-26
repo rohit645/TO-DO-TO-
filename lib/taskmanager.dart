@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import './showtasks.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import './description.dart';
 
-Future<String> _asyncInputDialog(BuildContext context) async {
+Future<String> _asyncAddTaskDialog(BuildContext context) async {
   String teamName = '';
   return showDialog<String>(
     context: context,
@@ -17,7 +18,7 @@ Future<String> _asyncInputDialog(BuildContext context) async {
                 child: new TextField(
               autofocus: true,
               decoration: new InputDecoration(
-                  labelText: 'Task Title', hintText: 'Meeting with boss'),
+                  labelText: 'Task Title', hintText: 'add any task'),
               onChanged: (value) {
                 teamName = value;
               },
@@ -46,20 +47,28 @@ class taskManager extends StatefulWidget {
 
 class _taskManagerState extends State<taskManager> {
   List<String> tasks = [];
+  Map<String, String> details = {};
 
   @override
   void initState() {
     _getvalues();
     print(tasks);
-    showtasks(tasks, _deletetask);
+    showtasks(tasks, _deletetask, _add_details);
     super.initState();
   }
 
   void _addTask(String task) {
     setState(() {
       _setvalues(tasks);
-      tasks.add(task);     
+      tasks.add(task);
     });
+  }
+
+  void _add_details() {
+    print('added details!');
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (BuildContext) => detailsWindow()));
+    // details[]
   }
 
   void _deletetask(String task) {
@@ -82,25 +91,23 @@ class _taskManagerState extends State<taskManager> {
         child: Icon(Icons.add),
         onPressed: () async {
           // _addTask();
-          final String currentTeam = await _asyncInputDialog(context);
+          final String currentTeam = await _asyncAddTaskDialog(context);
           print("Current team name is $currentTeam");
           if (currentTeam != "") _addTask(currentTeam);
           _setvalues(tasks);
         },
       ),
-      body: showtasks(tasks, _deletetask),
+      body: showtasks(tasks, _deletetask, _add_details),
     );
   }
 
-  Future <bool> _setvalues(List <String> tasks) async {
+  Future<bool> _setvalues(List<String> tasks) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.setStringList('key645', tasks);
   }
 
-  Future <List<String> > _getvalues () async {
+  Future<List<String>> _getvalues() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    List <String> dummytask;
     tasks += prefs.getStringList('key645');
   }
-  
 }

@@ -1,22 +1,15 @@
 # todoto
-
-A new Flutter project.
+A new Flutter project which keeps record of tasks you have completed and tasks yet to be completed.
 
 ## Some of the Screenshots from my project 
-![][todo1.jpeg]
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+<div class="row">
+  <div class="column" >
+    <img src="https://github.com/rohit645/TO-DO-TO-/blob/master/todo1.jpeg" width="25%" height="20%" align="left">
+  </div>
+  <div class="column">
+    <img src="https://github.com/rohit645/TO-DO-TO-/blob/master/todo2.jpeg" width="25%" height="20%" align="center">
+  </div>
+</div
 
 
 

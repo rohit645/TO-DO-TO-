@@ -3,7 +3,7 @@
 A new Flutter project.
 
 ## Some of the Screenshots from my project 
-![][/home/rohit/Downloads/todo1.jpeg]
+![][todo1.jpeg]
 
 ## Getting Started
 
